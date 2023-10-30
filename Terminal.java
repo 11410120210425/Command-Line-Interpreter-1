@@ -14,7 +14,7 @@ class parser {
         }
         return true;
     }
-
+//get 
     public String getCommandName() {
         return commandName;
     }
