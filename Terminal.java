@@ -64,6 +64,56 @@ public class Terminal {
             }
         }
     }
+        public void ls() {
+        //Get the dic path
+        File file = new File((System.getProperty("user.dire")));
+        if (!file.exists()) {
+            System.out.println("This directory is not exits ");
+        }
+        else {
+            File[] files = file.listFiles();
+            for (File f : files) {
+                if (f.isDirectory())
+                    System.out.println("Directory: ");
+                else
+                    System.out.println("file: ");
+                System.out.println(f.getName());
+            }
+        }
+    }
+
+    public void touch(String [] fileNames)throws IOException {
+        for (String f : fileNames) {
+            File file = new File(f);
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("Created file:" + f);
+            }
+            //if file is exist modification time of the file
+            else {
+                file.setLastModified(System.currentTimeMillis());
+                System.out.println("update time of file: "+f);
+            }
+        }
+    }
+    
+
+    public void cat(String[] fileNames) {
+        for (String f : fileNames) {
+            File file = new File(f);
+            if (file.exists() && file.isFile()) {
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line = br.readLine();
+                    while (line != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error reading the file: " + e.getMessage());
+                }
+            }
+        }
+    }
 
     public static void chooseCommandAction(String command) {
         switch (command) {
